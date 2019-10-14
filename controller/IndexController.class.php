@@ -10,17 +10,17 @@ class IndexController extends Controller
             case 'caption':
                 setcookie('sort', '', time() - 3600);
                 setcookie('sort', 'caption', time() + 3600, '/');
-                header("Refresh:0");
+                //header("Refresh:0");
                 break;
             case 'email':
                 setcookie('sort', '', time() - 3600);
                 setcookie('sort', 'email', time() + 3600, '/');
-                header("Refresh:0");
+                //header("Refresh:0");
                 break;
             case 'status':
                 setcookie('sort', '', time() - 3600);
                 setcookie('sort', 'status', time() + 3600, '/');
-                header("Refresh:0");
+                //header("Refresh:0");
                 break;
         }
 

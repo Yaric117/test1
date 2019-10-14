@@ -1,10 +1,26 @@
-//'use strict'
+'use strict'
 //сортировка
 const sort = document.querySelector('.form-sort');
 const siteUrl = '';
 if (sort) {
     sort.addEventListener('change', () => {
-        sort.submit();
+        //sort.submit();
+         //e.preventDefault();
+         let formData = new FormData(sort);
+         fetch(siteUrl, {
+                 method: 'post',
+                 body: formData
+             })
+             .then((response) => {
+                 if (response.status !== 200) {
+                     alert('Ошибка отправки данных!')
+                 }
+                 return response.text();
+             }).then((data) => {
+                window.location.reload();
+             }).catch((err) => {
+                 alert('Error')
+             });
     });
 }
 
