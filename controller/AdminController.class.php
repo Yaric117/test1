@@ -7,21 +7,31 @@ class AdminController extends Controller
     {
         LoginModel::logIn();
 
+        $selCap = 'selected';
+        $selEmail = '';
+        $selSt = '';
+
         switch ($_POST['sort']) {
             case 'caption':
                 setcookie('sort', '', time() - 3600);
                 setcookie('sort', 'caption', time() + 3600, '/');
-                //header("Refresh:0");
+                $selCap = 'selected';
+                $selEmail = '';
+                $selSt = '';
                 break;
             case 'email':
                 setcookie('sort', '', time() - 3600);
                 setcookie('sort', 'email', time() + 3600, '/');
-                //header("Refresh:0");
+                $selCap = '';
+                $selEmail = 'selected';
+                $selSt = '';
                 break;
             case 'status':
                 setcookie('sort', '', time() - 3600);
                 setcookie('sort', 'status', time() + 3600, '/');
-                //header("Refresh:0");
+                $selCap = '';
+                $selEmail = '';
+                $selSt = 'selected';
                 break;
         }
 
@@ -62,27 +72,6 @@ class AdminController extends Controller
 
 
         <?php
-                $selCap = '';
-                $selEmail = '';
-                $selSt = '';
-
-                switch ($a) {
-                    case 'caption':
-                        $selCap = 'selected';
-                        $selEmail = '';
-                        $selSt = '';
-                        break;
-                    case 'email':
-                        $selCap = '';
-                        $selEmail = 'selected';
-                        $selSt = '';
-                        break;
-                    case 'status':
-                        $selCap = '';
-                        $selEmail = '';
-                        $selSt = 'selected';
-                        break;
-                }
 
                 echo self::render(__DIR__ . '/../view/footer.html', [
                     'SELECCAP' => $selCap,

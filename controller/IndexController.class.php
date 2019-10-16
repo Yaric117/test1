@@ -6,21 +6,31 @@ class IndexController extends Controller
     public function index()
     {
 
+        $selCap = 'selected';
+        $selEmail = '';
+        $selSt = '';
+
         switch ($_POST['sort']) {
             case 'caption':
                 setcookie('sort', '', time() - 3600);
                 setcookie('sort', 'caption', time() + 3600, '/');
-                //header("Refresh:0");
+                $selCap = 'selected';
+                $selEmail = '';
+                $selSt = '';
                 break;
             case 'email':
                 setcookie('sort', '', time() - 3600);
                 setcookie('sort', 'email', time() + 3600, '/');
-                //header("Refresh:0");
+                $selCap = '';
+                $selEmail = 'selected';
+                $selSt = '';
                 break;
             case 'status':
                 setcookie('sort', '', time() - 3600);
                 setcookie('sort', 'status', time() + 3600, '/');
-                //header("Refresh:0");
+                $selCap = '';
+                $selEmail = '';
+                $selSt = 'selected';
                 break;
         }
 
@@ -59,34 +69,13 @@ class IndexController extends Controller
             </div>
 
 
-        <?php
-                $selCap = '';
-                $selEmail = '';
-                $selSt = '';
+    <?php
 
-                switch ($a) {
-                    case 'caption':
-                        $selCap = 'selected';
-                        $selEmail = '';
-                        $selSt = '';
-                        break;
-                    case 'email':
-                        $selCap = '';
-                        $selEmail = 'selected';
-                        $selSt = '';
-                        break;
-                    case 'status':
-                        $selCap = '';
-                        $selEmail = '';
-                        $selSt = 'selected';
-                        break;
-                }
+            echo self::render(__DIR__ . '/../view/footer.html', [
+                'SELECCAP' => $selCap,
+                'SELECEMAIL' => $selEmail,
+                'SELECST' =>  $selSt
 
-                echo self::render(__DIR__ . '/../view/footer.html', [
-                    'SELECCAP' => $selCap,
-                    'SELECEMAIL' => $selEmail,
-                    'SELECST' =>  $selSt
-
-                ]); //footer
-            }
+            ]); //footer
         }
+    }
