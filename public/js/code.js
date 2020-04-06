@@ -5,22 +5,22 @@ const siteUrl = '';
 if (sort) {
     sort.addEventListener('change', () => {
         //sort.submit();
-         //e.preventDefault();
-         let formData = new FormData(sort);
-         fetch(siteUrl, {
-                 method: 'post',
-                 body: formData
-             })
-             .then((response) => {
-                 if (response.status !== 200) {
-                     alert('Ошибка отправки данных!')
-                 }
-                 return response.text();
-             }).then((data) => {
-                window.location.reload();
-             }).catch((err) => {
-                 alert('Error')
-             });
+        //e.preventDefault();
+        let formData = new FormData(sort);
+        fetch(siteUrl, {
+                method: 'post',
+                body: formData
+            })
+            .then((response) => {
+                if (response.status !== 200) {
+                    alert('Ошибка отправки данных!')
+                }
+                return response.text();
+            }).then((data) => {
+                document.location.reload(true);
+            }).catch((err) => {
+                alert('Error')
+            });
     });
 }
 
@@ -57,20 +57,31 @@ const modalWindow = (modalClass, modalContClass, modalBtnCloseClass, imgIcoClass
 }
 
 //форма добавления задания;
-let patternName = '[A-Za-zА-Яа-яЁё]{2,}';
+let patternName = '^[A-Za-zА-Яа-яЁё\\s]+$';
 const tamplateFormAdd = `
-        <form class='subscribe-form f-col' action='' method="POST">
-            <div class='input-container f-item-cont'>
-                <input id='name' class='subscribe-form-input f-item' name='name' type='text' required
-            pattern="${patternName}" placeholder="*Ваше имя:">
-                <input id='email' class='subscribe-form-input f-item' name='email' type='email' required
-            placeholder="*email:" >
-                <input class='subscribe-form-input f-item' name='surname' type='text'>
-                <textarea class='subscribe-form-input f-item' name='text' required placeholder="*Текст задачи (не больше 300 символов):" rows="80" maxlength="300"></textarea>
-            </div>
-                <span class='preload'></span>
-            <input class='subscribe-form-buttom' type='submit'>
-          </form>`;
+<form class='row justify-content-center mt-5 subscribe-form' action='' method="POST">
+    <div class='col-md-8'>
+        <div class='form-group'>
+            <input id='name' class='form-control' name='name' type='text' required pattern="${patternName}" placeholder="*Ваше имя:">
+            <small id="emailHelp" class="form-text text-muted">Только русские буквы.</small>
+        </div>
+        <div class='form-group'>
+            <input id='email' class='form-control' name='email' type='email' required placeholder="*email:">
+        </div>
+        <div class='form-group d-none'>
+            <input class='form-control' name='surname' type='text'>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Example textarea</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name='text' required placeholder="*Текст задачи (не больше 300 символов):" rows="3" maxlength="300"></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">
+        <span class="spinner-border spinner-border-sm preload" role="status" aria-hidden="true"></span>
+           Создать задачу
+        </button>
+    </div>
+</form>`;
 
 
 new FormInModal('#add', tamplateFormAdd);
@@ -90,21 +101,34 @@ const editTask = () => {
             attr = 'checked';
         }
         const tamplateFormEdit = `
-            <form class='subscribe-form f-col' action='' method="POST">
-                <div class='input-container f-item-cont'>
-                    <input id='name' class='subscribe-form-input f-item' name='name-edit'required type='text'  pattern="${patternName}" value="${caption}">
-                    <input id='email' class='subscribe-form-input f-item' name='email-edit' required type='email' value="${email}">
-                    <input class='subscribe-form-input f-item' name='surname' type='text'>
-                    <textarea class='subscribe-form-input f-item'  name='text-edit' required placeholder="*Текст задачи (не больше 300 символов):" rows="80" maxlength="300">${txt}</textarea>
-                    <input class='subscribe-form-input f-item' type='hidden' name='id' value="${elem[i].getAttribute('id')}">
-                    <div class='f-item chek-edit'>
-                         <input name='end' type='checkbox' id='end' ${attr}>
-                         <label for="end">Задание выполнено</label>
-                    </div>
-                </div>
-                    <span class='preload'></span>
-                <input class='subscribe-form-buttom' type='submit'>
-              </form>`;
+    <form class='row justify-content-center mt-5 subscribe-form' action='' method="POST">
+        <div class='col-md-8'>
+            <div class='form-group'>
+                <input id='name' class='form-control' name='name-edit' type='text' required pattern="${patternName}"
+                    value="${caption}">
+            </div>
+            <div class='form-group'>
+                <input id='email' class='form-control' name='email-edit' type='email' required value="${email}">
+            </div>
+            <div class='form-group d-none'>
+                <input class='form-control' name='surname' type='text'>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Example textarea</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name='text-edit' required rows="3"
+                    maxlength="300">${txt}</textarea>
+            </div>
+            <div class="form-group form-check">
+                <input name='end' type='checkbox' class="form-check-input" id='end' ${attr}>
+                <label for="end">Задание выполнено</label>
+            </div>
+            <input class='subscribe-form-input f-item' type='hidden' name='id' value="${elem[i].getAttribute('id')}">
+            <span class='preload'></span>
+            <button type="submit" class="btn btn-primary">
+            <span class="spinner-border spinner-border-sm preload" role="status" aria-hidden="true"></span>
+            Сохранить</button>
+        </div>
+    </form>`;
 
         new FormInModal(`#${btnId}`, tamplateFormEdit);
     }
@@ -140,7 +164,6 @@ if (dell) {
                         alert('Error')
                     });
             }
-
         });
     }
 

@@ -1,19 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Log_In</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body style='padding: 20px;'>
-<a  class='btn btn-success link-to-main' href='/?path=index'>Главная страница</a>
-<div style='width:100%; height:100%; display:flex; flex-direction: column; justify-content: center; align-items:center;'>
-<form class='put-form-prod' enctype="multipart/form-data" method="POST" style='margin: 30px 0 20px 0;display:flex;flex-direction: column;'>
-    <input type="text" class="put-form-prod-title" name='login' placeholder="Имя пользователя" required>
-    <input type="text" class="put-form-prod-title" name='password' placeholder="Пароль" required style='margin: 10px 0 0 0;'>
-    <p><input type="checkbox" name="save" value="save_me"> запомнить меня</p>
-    <input type='submit' name='btn' class="put-form-prod-btn" style='margin: 10px 0 0px 0;'>
-</form>
+    <a class='btn btn-success link-to-main mb-3' href='/?path=index'>Главная страница</a>
+    <div class='row justify-content-center align-items-center mt-4'>
+        <div class='col-md-8'>
+            <form class='put-form-prod' enctype="multipart/form-data" method="POST">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Login:</label>
+                    <input type="text" class="form-control" name='login' placeholder="Имя пользователя" required
+                        id="exampleInputEmail1" aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-muted">логин: admin </small>
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1">Password:</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" name='password'>
+                    <small id="emailHelp" class="form-text text-muted">пароль: 123</small>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="exampleCheck1" name="save" value="save_me">
+                    <label class="form-check-label" for="exampleCheck1">запомнить</label>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+
+
+    

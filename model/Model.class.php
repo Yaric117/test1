@@ -41,10 +41,10 @@ class Model
         $table = self::$table;
         $start = $_GET['id'] * self::setRowVew() - self::setRowVew() . ',';
         $rowView = self::setRowVew();
-        $sql = "SELECT * FROM $table LIMIT $rowView";
+        $sql = "SELECT * FROM $table ORDER BY id DESC LIMIT $rowView";
 
         if ($_GET['id']) {
-            $sql = "SELECT * FROM $table LIMIT $start $rowView";
+            $sql = "SELECT * FROM $table ORDER BY id DESC LIMIT $start $rowView";
         }
 
         return db::getInstance()->Select($sql);

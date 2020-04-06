@@ -27,58 +27,13 @@ class FormInModal {
                 modalClose = modal.querySelector(this.modalBtnCloseClass);
 
             btn.addEventListener('click', () => {
-                modal.style.display = 'flex';
+                modal.style.display = 'block';
                 modal.classList.add(this.animClass);
                 modalContainer.innerHTML = this.formContent;
 
-                /* FETCH */
-                const myForm = document.querySelector(this.formClass);
-                let siteUrl = this.url;
-                myForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    let msg = confirm("Опубликовать?");
-                    if (msg) {
-                        preload();
-                        const formData = new FormData(myForm);
-                        fetch(siteUrl, {
-                            method: 'post',
-                            body: formData
-                        }).then(function (response) {
-                            preloadDelete();
-                            if (response.status !== 200) {
-                                alert('Форма не отправлена!')
-                            }
-                            return response.text();
+                this.fetch();
 
-                        }).then(function (data) {
-                            window.location.reload();
-
-                        }).catch(function (error) {
-                            console.error(error);
-                        })
-                    }
-                });
-
-
-                // прелоад
-
-                const preload = () => {
-                    let elemPreload = document.querySelector('.preload');
-                    if (elemPreload) {
-                        elemPreload.style.opacity = '1';
-                    }
-                }
-
-                //отмена прелоад
-
-                const preloadDelete = () => {
-                    let elemPreload = document.querySelector('.preload');
-                    if (elemPreload) {
-                        elemPreload.style.opacity = '0';
-                    }
-                }
             })
-
             modalClose.addEventListener('click', () => {
                 modal.style.display = 'none';
                 modal.classList.remove(this.animClass);
@@ -97,7 +52,110 @@ class FormInModal {
         }
     }
 
+    /* FETCH */
+
+    fetch() {
+
+        const myForm = document.querySelector(this.formClass);
+        let siteUrl = this.url;
+        if (myForm) {
+            myForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                let msg = confirm("Опубликовать?");
+                if (msg) {
+                    this.preload();
+                    const formData = new FormData(myForm);
+                    fetch(siteUrl, {
+                        method: 'post',
+                        body: formData
+                    }).then(function (response) {
+
+                        if (response.status !== 200) {
+                            alert('Форма не отправлена!')
+                        }
+                        return response.text();
+
+                    }).then(function (data) {
+                        window.location.reload();
+
+                    }).catch(function (error) {
+                        console.error(error);
+                    })
+                }
+            });
+        }
+    }
+
+    // прелоад
+
+    preload() {
+        let elemPreload = document.querySelector('.preload');
+        if (elemPreload) {
+            elemPreload.style.opacity = '1';
+        }
+    }
+
     callMethods() {
         this.modalForm();
+    }
+}
+
+
+class ReviewsForm extends FormInModal {
+    constructor() {
+        super();
+    }
+
+    fetch() {
+        const myForm = document.querySelector(this.formClass);
+        let siteUrl = this.url;
+        myForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let msg = confirm("Опубликовать?");
+            if (msg) {
+                this.preload();
+                const formData = new FormData(myForm);
+                formData.append('stars', this.stars());
+                fetch(siteUrl, {
+                    method: 'post',
+                    body: formData
+                }).then(function (response) {
+                    this.preloadDelete();
+                    if (response.status !== 200) {
+                        alert('Форма не отправлена!')
+                    }
+                    return response.text();
+
+                }).then(function (data) {
+                    window.location.reload();
+
+                }).catch(function (error) {
+                    console.error(error);
+                })
+            }
+        });
+    }
+
+    stars() {
+        let elem = document.querySelectorAll('.stars-cont'),
+            elem2 = document.querySelectorAll('.star');
+        for (let i = 0; i < elem.length; i++) {
+            elem[i].addEventListener('click', () => {
+                elem2.forEach(element => {
+                    if (element.classList.contains('star-select')) {
+                        element.classList.remove('star-select')
+                    }
+
+                });
+                for (let j = i + 1; j < elem.length; j++) {
+
+                    elem2[j].classList.add('star-select')
+
+                }
+
+                console.log(i + 1);
+                return (i + 1);
+            })
+        }
     }
 }

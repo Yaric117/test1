@@ -1,16 +1,14 @@
-<div class='item-container-edit item-edit f-item-3' id='{{ID}}'>
-    <div>
-        <span class='item item-task'><b>Имя:&nbsp;</b><p class='item-caption'>{{CAPTION}}</p></span>
-        <span class='item item-task'><b>email:&nbsp;</b><p class='item-email'>{{EMAIL}}</p></span>
-        <span class='item item-task'><b>Текст задачи:</b><br><p class='item-text'>{{TEXT}}</p></span>
-        <span class='item status'>{{STATUS}}</span>
-    </div> 
-    <div class='item-container-btn'>
-        <button  class="btn btn-primary" id='btn-{{ID}}'>Редактировать задачу</button>
-        <button  class="btn btn-danger dell" id-data='{{ID}}'>Удалить</button>
+<div class="col-lg-4 col-md-6">
+    <div class='card item-edit' id='{{ID}}'>
+        <div class="card-body">
+            <h5 class="card-title item-caption ">{{CAPTION}}</h5>
+            <h6 class="card-title item-email my-3">{{EMAIL}}</h6>
+            <p class="card-text item-text">{{TEXT}}</p>
+            <p class="card-text item status mt-3">{{STATUS}}</p>
+        </div>
+        <div class='item-container-btn mt-3'>
+            <button class="btn btn-primary mb-3" id='btn-{{ID}}'>Редактировать задачу</button>
+            <button class="btn btn-danger dell" id-data='{{ID}}'>Удалить</button>
+        </div>
     </div>
 </div>
-    
-
-
-
