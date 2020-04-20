@@ -89,18 +89,21 @@ new FormInModal('#add', tamplateFormAdd);
 //редактирование задания;
 const editTask = () => {
     let elem = document.querySelectorAll('.item-edit');
-    for (let i = 0; i < elem.length; i++) {
-        let caption = elem[i].querySelector('.item-caption').innerHTML,
-            email = elem[i].querySelector('.item-email').innerHTML,
-            txt = elem[i].querySelector('.item-text').innerHTML,
-            btn = elem[i].querySelector('.btn'),
-            btnId = btn.getAttribute('id'),
-            status = elem[i].querySelector('.status'),
-            attr = '';
-        if (status.innerHTML !== '') {
-            attr = 'checked';
-        }
-        const tamplateFormEdit = `
+    if (elem) {
+
+        for (let i = 0; i < elem.length; i++) {
+            let caption = elem[i].querySelector('.item-caption').innerHTML,
+                email = elem[i].querySelector('.item-email').innerHTML,
+                txt = elem[i].querySelector('.item-text').innerHTML,
+                btn = elem[i].querySelector('.btn'),
+                status = elem[i].querySelector('.status'),
+                attr = '';
+
+
+            if (status.innerHTML !== '') {
+                attr = 'checked';
+            }
+            const tamplateFormEdit = `
     <form class='row justify-content-center mt-5 subscribe-form' action='' method="POST">
         <div class='col-md-8'>
             <div class='form-group'>
@@ -129,8 +132,13 @@ const editTask = () => {
             Сохранить</button>
         </div>
     </form>`;
+            if (btn) {
 
-        new FormInModal(`#${btnId}`, tamplateFormEdit);
+                let btnId = btn.getAttribute('id');
+                new FormInModal(`#${btnId}`, tamplateFormEdit);
+            }
+
+        }
     }
 }
 
@@ -168,3 +176,4 @@ if (dell) {
     }
 
 }
+
